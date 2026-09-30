@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Incident — HoneySIM</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <a class="back" href="./">← Dashboard</a>
+      <span class="logo" aria-hidden="true">◆</span>
+      <span class="name">HoneySIM</span>
+      <span class="sub">Incident</span>
+    </div>
+    <div class="controls">
+      <span id="status" class="status" role="status">
+        <span class="dot" aria-hidden="true"></span><span id="status-text">connecting…</span>
+      </span>
+    </div>
+  </header>
+
+  <div id="error" class="banner hidden" role="alert"></div>
+
+  <main class="grid">
+    <section id="not-found" class="card span-2 hidden">
+      <h1 class="incident-title">Incident not found</h1>
+      <p class="muted" id="not-found-text"></p>
+      <p><a href="./">← Back to the dashboard</a></p>
+    </section>
+
+    <section id="incident" class="card span-2 hidden">
+      <div class="incident-head">
+        <div>
+          <h1 class="incident-title">Incident <span id="i-id"></span></h1>
+          <div class="incident-type"><span id="i-severity"></span> <span id="i-type"></span></div>
+          <p class="incident-desc" id="i-description"></p>
+        </div>
+        <div class="status-box">
+          <div class="field-label">Status</div>
+          <div class="status-buttons" id="status-buttons" role="group" aria-label="Change status">
+            <button type="button" data-status="OPEN">Open</button>
+            <button type="button" data-status="INVESTIGATING">Investigating</button>
+            <button type="button" data-status="RESOLVED">Resolved</button>
+            <button type="button" data-status="FALSE_POSITIVE">False positive</button>
+          </div>
+          <div class="muted" id="status-msg">&nbsp;</div>
+        </div>
+      </div>
+
+      <dl class="fields">
+        <div><dt>Source IP</dt><dd class="ip" id="i-ip"></dd></div>
+        <div><dt>Target</dt><dd id="i-target"></dd></div>
+        <div><dt>Events</dt><dd id="i-count"></dd></div>
+        <div><dt>First seen</dt><dd id="i-first"></dd></div>
+        <div><dt>Last seen</dt><dd id="i-last"></dd></div>
+        <div><dt>Duration</dt><dd id="i-duration"></dd></div>
+        <div><dt>Alert raised</dt><dd id="i-raised"></dd></div>
+        <div><dt>Last update</dt><dd id="i-updated"></dd></div>
+      </dl>
+    </section>
+
+    <section id="evidence-card" class="card hidden">
+      <div class="card-head"><h2>Evidence</h2><span class="muted">collected by the detection rule</span></div>
+      <div id="evidence"></div>
+    </section>
+
+    <section id="related-card" class="card hidden">
+      <div class="card-head"><h2>Other alerts from this IP</h2><span class="muted" id="related-info"></span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Severity</th><th>Type</th><th class="num">Events</th><th>Status</th><th>Last seen</th></tr></thead>
+          <tbody id="related"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="timeline-card" class="card span-2 hidden">
+      <div class="card-head"><h2>Timeline</h2><span class="muted" id="timeline-info"></span></div>
+      <ol class="timeline" id="timeline"></ol>
+    </section>
+  </main>
+
+  <script src="common.js"></script>
+  <script src="incident.js"></script>
+</body>
+</html>

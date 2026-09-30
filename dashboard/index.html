@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HoneySIM — Mini SIEM</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="name">HoneySIM</span>
+    </div>
+    <div class="controls">
+      <label for="range">Range</label>
+      <select id="range">
+        <option value="15">15 min</option>
+        <option value="60" selected>1 hour</option>
+        <option value="360">6 hours</option>
+        <option value="1440">24 hours</option>
+        <option value="10080">7 days</option>
+      </select>
+      <span id="status" class="status" role="status">
+        <span class="dot" aria-hidden="true"></span><span id="status-text">connecting…</span>
+      </span>
+    </div>
+  </header>
+
+  <div id="error" class="banner hidden" role="alert"></div>
+
+  <main class="grid">
+    <section class="tiles span-2" aria-label="Summary">
+      <div class="tile">
+        <div class="tile-label">Events</div>
+        <div class="tile-value" id="t-events">–</div>
+        <div class="tile-sub" id="t-events-sub">&nbsp;</div>
+      </div>
+      <div class="tile">
+        <div class="tile-label">Alerts</div>
+        <div class="tile-value" id="t-alerts">–</div>
+        <div class="tile-sub" id="t-alerts-sub">&nbsp;</div>
+      </div>
+      <div class="tile tile-high">
+        <div class="tile-label">High severity</div>
+        <div class="tile-value" id="t-high">–</div>
+        <div class="tile-sub">HIGH / CRITICAL alerts</div>
+      </div>
+      <div class="tile">
+        <div class="tile-label">Hosts</div>
+        <div class="tile-value" id="t-hosts">–</div>
+        <div class="tile-sub" id="t-hosts-sub">&nbsp;</div>
+      </div>
+    </section>
+
+    <section class="card span-2">
+      <div class="card-head">
+        <h2>Events over time</h2>
+        <span class="muted" id="timeline-info"></span>
+      </div>
+      <div class="chart-box"><canvas id="timeline-chart" aria-label="Events and alerts over time"></canvas></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Attack types</h2><span class="muted">all alerts</span></div>
+      <div class="donut-wrap">
+        <div class="chart-box donut"><canvas id="types-chart" aria-label="Alerts by type"></canvas></div>
+        <ul id="types-legend" class="legend"></ul>
+      </div>
+      <p id="types-empty" class="empty hidden">No alerts yet</p>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Top source IPs</h2><span class="muted">by events</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>IP</th><th class="num">Events</th><th class="num">Alerts</th><th class="num">High</th><th>Last seen</th></tr></thead>
+          <tbody id="top-ips"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card span-2">
+      <div class="card-head"><h2>Recent alerts</h2><span class="muted" id="alerts-info"></span></div>
+      <div class="table-wrap">
+        <table class="alerts">
+          <thead><tr>
+            <th>Severity</th><th>Type</th><th>Source IP</th><th class="num">Events</th>
+            <th>Status</th><th>Last seen</th><th>Description</th>
+          </tr></thead>
+          <tbody id="alerts"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="vendor/chart.umd.js"></script>
+  <script src="common.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
